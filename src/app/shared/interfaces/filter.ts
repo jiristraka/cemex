@@ -1,7 +1,7 @@
 import { FilterOperator } from '../models';
 
-export interface FilterService {
+export interface Filter {
   supportedOperators: FilterOperator[];
 
-  filter(operator: FilterOperator, value: any): boolean;
+  filter(value: any, filter: any): boolean;
 }

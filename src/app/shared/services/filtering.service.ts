@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { TableFilter, TableFilters } from '../models';
-import moment from 'moment';
+import { AVAILABLE_FILTERS } from '../filters';
+import { Filter } from '../interfaces';
 
 @Injectable()
 export class FilteringService {
+  constructor(@Inject(AVAILABLE_FILTERS) private filters: Filter[]) {}
+
   public filterData(data: any[], filters: TableFilters): any[] {
     return data.filter((item) => {
       return Object.keys(filters).every((key) => {
@@ -12,35 +15,15 @@ export class FilteringService {
           return true;
         }
 
-        if (filter.operator === 'contains') {
-          return item[key].includes(filter.value);
+        const filterInstance = this.filters.find((f) =>
+          f.supportedOperators.includes(filter.operator)
+        );
+
+        if (!filterInstance) {
+          return true;
         }
 
-        if (filter.operator === 'in') {
-          return (filter.value as any[]).includes(item[key]);
-        }
-
-        if (filter.operator === 'eq') {
-          return item[key] === filter.value;
-        }
-
-        if (filter.operator === 'between') {
-          const { from, to } = filter.value as { from: Date; to: Date };
-          if (from && !to) {
-            return moment(item[key]).isSameOrAfter(from);
-          }
-          if (!from && to) {
-            return moment(item[key]).isSameOrBefore(to);
-          }
-          if (from && to) {
-            return (
-              moment(item[key]).isSameOrAfter(from) &&
-              moment(item[key]).isSameOrBefore(to)
-            );
-          }
-        }
-
-        return true;
+        return filterInstance.filter(item[key], filter.value);
       });
     });
   }

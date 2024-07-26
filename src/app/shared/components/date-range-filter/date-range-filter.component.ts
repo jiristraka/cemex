@@ -21,7 +21,6 @@ export class DateRangeFilterComponent {
   constructor(private filtersStateService: TableFiltersStateService) {}
 
   public onDateSelect(): void {
-    debugger;
     this.filtersStateService.setFilterValue(
       this.field,
       this.dateRange,

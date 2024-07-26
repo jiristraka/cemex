@@ -10,6 +10,13 @@ import {
   TextSearchFilterComponent,
 } from './shared/components';
 import { ORDER_HISTORY_ITEMS } from './data/order-history-items';
+import {
+  AVAILABLE_FILTERS,
+  BetweenFilter,
+  ContainsFilter,
+  EqFilter,
+  InFilter,
+} from './shared/filters';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +31,12 @@ import { ORDER_HISTORY_ITEMS } from './data/order-history-items';
     MultiChoiceFilterComponent,
     DropDownFilterComponent,
     DateRangeFilterComponent,
+  ],
+  providers: [
+    { provide: AVAILABLE_FILTERS, useClass: InFilter, multi: true },
+    { provide: AVAILABLE_FILTERS, useClass: ContainsFilter, multi: true },
+    { provide: AVAILABLE_FILTERS, useClass: BetweenFilter, multi: true },
+    { provide: AVAILABLE_FILTERS, useClass: EqFilter, multi: true },
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
