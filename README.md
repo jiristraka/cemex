@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
 
+## Developer Notes
+
+### Things to point out
+- I created a custom table component that allows defining columns in the component's HTML template code. Each column can be rendered by defining the property name, or we can provide a custom HTML template to render the table cell content. A declarative way of programming is easier to use.
+- I tried to use the Single Responsibility Principle as much as possible and also the Open/Closed Principle. We have a dedicated service for filtering and another one for storing the filters' state per table. When we want to add new filter types/filter operators, we can simply implement a new filter operator and register it in the IOC of Angular without needing to update the filter service logic itself.
+- The responsiveness is handled by the BS5 grid and helper classes.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
