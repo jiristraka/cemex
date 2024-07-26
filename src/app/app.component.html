@@ -1,31 +1,33 @@
 <main class="container pt-4">
   <h3 class="fw-bold">Order History</h3>
   <cx-table [data]="tableData">
-    <div class="d-flex justify-content-between align-items-center" filters>
-      <div class="d-flex gap-3 align-items-center">
+    <ng-container filters>
+      <div class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
         <cx-multi-choice-filter
           label="Status"
           field="status"
           [options]="['Pending', 'In Progress', 'Completed']"
         ></cx-multi-choice-filter>
-        <div class="vr"></div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
         <cx-dropdown-filter
           label="Product Line"
           placeholder="All Product Lines"
           field="productLine"
           [options]="['Ready-Mix', 'Aggregates', 'Cement']"
         ></cx-dropdown-filter>
-        <div class="vr"></div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
         <cx-date-range-filter label="" field="dateRequested">
         </cx-date-range-filter>
       </div>
-      <div>
+      <div class="col-12 col-md-6 col-lg-3 mb-3 mb-lg-0">
         <cx-text-search-filter
           field="orderNumber"
           placeholder="Search for Order Number"
         ></cx-text-search-filter>
       </div>
-    </div>
+    </ng-container>
     <cx-table-column header="Status" propertyName="status">
       <ng-template let-item="item" #template>
         <div class="d-flex">
@@ -37,7 +39,7 @@
             'bg-success': item.status === 'Completed',
           }"
           ></div>
-          <span class="ms-2">{{ item.status }}</span>
+          <span class="ms-2 text-nowrap">{{ item.status }}</span>
         </div>
       </ng-template>
     </cx-table-column>
