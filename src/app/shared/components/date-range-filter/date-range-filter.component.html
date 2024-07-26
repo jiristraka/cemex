@@ -1,0 +1,24 @@
+<div class="d-flex gap-3">
+  <div>
+    <div>From</div>
+    <p-calendar
+      dateFormat="dd.mm.yy"
+      [(ngModel)]="dateRange.from"
+      [iconDisplay]="'input'"
+      [showIcon]="true"
+      (onSelect)="onDateSelect()"
+      inputId="icondisplay"
+    />
+  </div>
+  <div>
+    <div>To</div>
+    <p-calendar
+      dateFormat="dd.mm.yy"
+      [(ngModel)]="dateRange.to"
+      [iconDisplay]="'input'"
+      [showIcon]="true"
+      (onSelect)="onDateSelect()"
+      inputId="icondisplay"
+    />
+  </div>
+</div>

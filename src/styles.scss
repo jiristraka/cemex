@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+.p-calendar {
+  input {
+    max-width: 150px;
+  }
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}

@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row mt-4 mb-5 py-3 border rounded-1 shadow-sm">
+    <ng-content select="[filters]"></ng-content>
+  </div>
+  <ng-container *ngIf="data.length && filteredData.length; else noData">
+    <div class="row mb-2">
+      <div
+        class="col fw-bold"
+        [ngClass]="column.cssClass"
+        *ngFor="let column of columns"
+      >
+        {{ column.header }}
+      </div>
+    </div>
+    <div
+      class="row mb-2 py-3 border rounded-1 shadow-sm"
+      *ngFor="let row of filteredData; let index = index"
+    >
+      <div
+        class="col"
+        [ngClass]="column.cssClass"
+        *ngFor="let column of columns"
+      >
+        <ng-container *ngIf="column.content; else defaultTemplate">
+          <ng-container
+            [ngTemplateOutlet]="column.content"
+            [ngTemplateOutletContext]="{
+              item: row,
+              index: index
+            }"
+          ></ng-container>
+        </ng-container>
+        <ng-template #defaultTemplate>
+          {{ row[column.propertyName] }}
+        </ng-template>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noData>
+    <div class="text-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        fill="currentColor"
+        class="bi bi-info-circle-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"
+        />
+      </svg>
+      <h1 class="fs-1 my-2 mb-4">Nothing to display</h1>
+      <p>Please, adjust filters to see more results.</p>
+    </div>
+  </ng-template>
+</div>

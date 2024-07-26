@@ -1,0 +1,11 @@
+<div>{{ label }}</div>
+<form [formGroup]="form">
+  <label
+    class="me-2"
+    formArrayName="selectedOptions"
+    *ngFor="let order of optionsFormArray.controls; let i = index"
+  >
+    <input type="checkbox" class="form-check-input" [formControlName]="i" />
+    {{ options[i] }}
+  </label>
+</form>
